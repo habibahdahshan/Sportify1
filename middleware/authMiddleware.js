@@ -1,11 +1,12 @@
+//function btshouf fe user f session lw feh trg3o lw la trga3 null
 function sessionUser(req) {
   return req.session && req.session.user ? req.session.user : null;
 }
-
+//function btshouf lw role bta3 user admin aw superadmin
 function isAdminRole(role) {
   return role === "admin" || role === "superadmin";
 }
-
+//function btshouf lw role bta3 user superadmin
 exports.isAdminRole = isAdminRole;
 
 exports.isSuperAdmin = (req) => {
@@ -55,7 +56,7 @@ exports.requireSuperAdmin = (req, res, next) => {
   }
   next();
 };
-
+//function btshouf lw user mwgod f session lw la trga3 null
 exports.requireGuest = (req, res, next) => {
   const user = sessionUser(req);
   if (user) {
