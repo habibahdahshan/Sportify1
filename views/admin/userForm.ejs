@@ -14,7 +14,7 @@
   <label for="role">Role</label>
   <select id="role" name="role">
     <% ["user","admin","superadmin"].forEach(function(r) { %>
-      <option value="<%= r %>" <%= targetUser && targetUser.role === r ? "selected" : "" %>><%= r %></option>
+      <option value="<%= r %>" <%= targetUser ? (targetUser.role === r ? "selected" : "") : (r === "admin" ? "selected" : "") %>><%= r %></option>
     <% }) %>
   </select>
 
