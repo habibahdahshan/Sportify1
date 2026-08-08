@@ -372,7 +372,7 @@ exports.postAddUser = async (req, res, next) => {
       }
     }
     const hashed = await bcrypt.hash(password, 12);
-    await User.create({ name, email: email.toLowerCase(), password: hashed, role: role || "user" });
+    await User.create({ name, email: email.toLowerCase(), password: hashed, role: finalRole });
     req.session.success = "User created successfully.";
     res.redirect("/admin/users");
   } catch (err) {
