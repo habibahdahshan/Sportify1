@@ -15,7 +15,7 @@ exports.validateSignup = (req, res, next) => {
   } else if (!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password)) {
     errors.push("Password must include letters and numbers.");
   }
-
+//لو في خطئين يبقي اللينس 2
   if (errors.length > 0) {
     req.session.error = errors.join(" ");
     return res.redirect("/auth/signup");
@@ -23,7 +23,7 @@ exports.validateSignup = (req, res, next) => {
 
   next();
 };
-
+//بنسجل دخول بحساب موجود فعلا 
 exports.validateLogin = (req, res, next) => {
   const { email, password } = req.body;
   const errors = [];
