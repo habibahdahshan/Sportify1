@@ -41,12 +41,6 @@ const userSchema = new mongoose.Schema(
     timestamps: true
   }
 );
-userSchema.index(
-  { role: 1 },
-  {
-    unique: true,
-    partialFilterExpression: { role: "superadmin" }
-  }
-);
+
 module.exports = mongoose.model("User", userSchema);
 
