@@ -20,7 +20,11 @@ async function createAdmin() {
       console.log(`Existing user "${email}" promoted to superadmin and password reset.`);
     } else {
       const hashed = await bcrypt.hash(password, 12);
-      await User.create({ name, email, password: hashed, role: "superadmin" });
+      await User.create({ name,
+         email, 
+         password: hashed, 
+         role: "superadmin" 
+        });
       console.log(`Superadmin created: ${email} / ${password}`);
     }
 
