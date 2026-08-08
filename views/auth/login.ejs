@@ -1,0 +1,30 @@
+<%- include("../partials/head") %>
+<nav class="navbar">
+  <a href="/" class="logo">Sportify</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About us</a></li>
+    <li><a href="/auth/signup">Sign up</a></li>
+  </ul>
+</nav>
+
+<main class="auth-page">
+  <div class="auth-card">
+    <h1>Sign in</h1>
+    <p>Welcome back. Enter your details to continue.</p>
+    <form id="loginForm" action="/auth/login" method="POST" novalidate>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email" placeholder="example@gmail.com">
+      <label for="password">Password</label>
+      <div class="password-field">
+        <input type="password" id="password" name="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters">
+        <button type="button" class="password-toggle" data-target="password" aria-label="Show password">Show</button>
+      </div>
+      <button type="submit">Sign in</button>
+    </form>
+    <p class="auth-alt">Don't have an account? <a href="/auth/signup">Sign up</a></p>
+  </div>
+</main>
+<script src="/User/Js/site.js"></script>
+</body>
+</html>

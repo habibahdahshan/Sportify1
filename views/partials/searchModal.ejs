@@ -1,0 +1,11 @@
+<div class="global-search" id="globalSearchPanel" aria-hidden="true">
+  <div class="global-search__dialog" role="dialog" aria-modal="true" aria-labelledby="global-search-title">
+    <div class="global-search__head">
+      <h2 id="global-search-title"><%= t('search') %></h2>
+      <button type="button" class="global-search__close" id="globalSearchClose" aria-label="Close search">✕</button>
+    </div>
+    <label class="visually-hidden" for="globalSearchInput">Search products</label>
+    <input type="search" id="globalSearchInput" class="global-search__input" placeholder="Search products…" autocomplete="off">
+    <ul class="global-search__results" id="globalSearchResults"></ul>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "home" }) %>
+
+<section class="hero" aria-label="Featured">
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__content page-container">
+    <p class="hero__eyebrow">Performance &amp; everyday sportswear</p>
+    <h1 class="hero__title">Sportify</h1>
+    <p class="hero__subtitle">Gear built to move with you — training, running, and everyday layers designed for how you actually live.</p>
+    <div class="hero__actions">
+      <a href="/shop" class="btn btn--primary">Shop collection</a>
+      <a href="/about" class="btn btn--ghost">Our story</a>
+    </div>
+  </div>
+</section>
+
+<main id="main-content">
+  <section id="flash-sale" class="flash-sale" aria-labelledby="flash-sale-heading">
+    <div class="page-container">
+      <header class="section-header">
+        <p class="section-eyebrow">Limited time</p>
+        <h2 id="flash-sale-heading" class="section-title"><%= t('flash_sale') %></h2>
+      </header>
+      <div class="products-grid" id="flashSaleGrid" data-loading="Loading…"></div>
+    </div>
+  </section>
+
+  <section id="about" class="brands" aria-labelledby="about-heading">
+    <div class="page-container">
+      <header class="section-header">
+        <p class="section-eyebrow">Find your fit</p>
+        <h2 id="about-heading" class="section-title"><%= t('shop_by_category') %></h2>
+      </header>
+
+      <div class="brand-boxes">
+        <a href="/shop?category=men" class="brand-card">
+          <img src="/User/media/men/men-nordx-track-jacket.jpg" alt="Men's sportswear">
+          <div class="brand-text">
+            <h3>Men</h3>
+            <p>Training tees, joggers, and jackets built for everyday intensity.</p>
+            <span>Shop Men</span>
+          </div>
+        </a>
+        <a href="/shop?category=women" class="brand-card">
+          <img src="/User/media/women/women-essentials-flexi-wide-leg.png" alt="Women's sportswear">
+          <div class="brand-text">
+            <h3>Women</h3>
+            <p>Leggings, sports bras, and layers that move with you.</p>
+            <span>Shop Women</span>
+          </div>
+        </a>
+        <a href="/shop?category=unisex" class="brand-card">
+          <img src="/User/media/unisex/unisex-strive-gym-bag.jpg" alt="Unisex sportswear">
+          <div class="brand-text">
+            <h3>Unisex</h3>
+            <p>Core hoodies, fleece, and outerwear for everyone.</p>
+            <span>Shop Unisex</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="best-sellers" class="best-sellers" aria-labelledby="bestsellers-heading">
+    <div class="page-container">
+      <header class="section-header">
+        <p class="section-eyebrow">Most loved</p>
+        <h2 id="bestsellers-heading" class="section-title"><%= t('best_sellers') %></h2>
+      </header>
+      <div class="products-grid" id="bestSellersGrid" data-loading="Loading…"></div>
+    </div>
+  </section>
+</main>
+
+<%- include("../partials/footer") %>
+<script src="/User/Js/home.js"></script>

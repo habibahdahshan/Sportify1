@@ -1,0 +1,104 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: mode === "edit" ? "Edit product" : "Add product", adminTab: "products" }) %>
+
+<form class="admin-form" method="POST" enctype="multipart/form-data"
+      action="<%= mode === 'edit' ? '/admin/products/' + product._id + '/update' : '/admin/products' %>">
+
+  <label for="name">Product name</label>
+  <input type="text" id="name" name="name" required minlength="2" value="<%= product ? product.name : '' %>">
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="3"><%= product ? product.description : '' %></textarea>
+
+  <label for="line">Line / tagline (optional)</label>
+  <input type="text" id="line" name="line" value="<%= product ? product.line : '' %>">
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:180px;">
+      <label for="category">Category</label>
+      <select id="category" name="category" required>
+        <option value="">Select category</option>
+        <% ["men","women","unisex"].forEach(function(c) { %>
+          <option value="<%= c %>" <%= product && product.category === c ? "selected" : "" %>><%= c.charAt(0).toUpperCase() + c.slice(1) %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div style="flex:1;min-width:180px;">
+      <label for="type">Type</label>
+      <select id="type" name="type">
+        <% ["apparel","footwear","accessories"].forEach(function(ty) { %>
+          <option value="<%= ty %>" <%= product && product.type === ty ? "selected" : "" %>><%= ty.charAt(0).toUpperCase() + ty.slice(1) %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div style="flex:1;min-width:140px;">
+      <label for="currency">Currency</label>
+      <input type="text" id="currency" name="currency" value="<%= product ? product.currency : 'LE' %>">
+    </div>
+  </div>
+
+  <label>Product image</label>
+  <input type="file" name="image" accept="image/png,image/jpeg,image/webp" id="imageInput">
+  <p class="field-hint">JPG, PNG or WEBP, up to 5MB. <% if (product && product.image) { %>Leave empty to keep the current image.<% } %></p>
+  <img id="imagePreview" class="image-preview" src="<%= product && product.image ? product.image : '' %>" style="<%= product && product.image ? '' : 'display:none;' %>">
+
+  <label style="margin-top:1.25rem;">Sizes, price &amp; stock</label>
+  <table class="admin-sizes-table" id="sizesTable">
+    <thead><tr><th>Size</th><th>Price</th><th>Stock</th><th></th></tr></thead>
+    <tbody class="admin-sizes-body" id="sizesBody">
+      <% var existingSizes = (product && product.sizes && product.sizes.length) ? product.sizes : [{size:"S",price:"",stock:""},{size:"M",price:"",stock:""},{size:"L",price:"",stock:""}]; %>
+      <% existingSizes.forEach(function(s, i) { %>
+        <tr>
+          <td><input type="text" name="sizes[<%= i %>][size]" value="<%= s.size %>" required maxlength="6"></td>
+          <td><input type="number" name="sizes[<%= i %>][price]" value="<%= s.price %>" min="0" step="0.01" required></td>
+          <td><input type="number" name="sizes[<%= i %>][stock]" value="<%= s.stock %>" min="0" step="1" required></td>
+          <td><button type="button" class="admin-link admin-danger remove-size-row" style="background:none;border:none;cursor:pointer;">✕</button></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <button type="button" id="addSizeRow" class="admin-btn-outline" style="margin-top:.5rem;">+ Add size</button>
+
+  <div style="display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;">
+    <label style="display:flex;align-items:center;gap:.4rem;font-weight:500;">
+      <input type="checkbox" name="isFeatured" <%= product && product.isFeatured ? "checked" : "" %>> Featured
+    </label>
+    <label style="display:flex;align-items:center;gap:.4rem;font-weight:500;">
+      <input type="checkbox" name="isBestSeller" <%= product && product.isBestSeller ? "checked" : "" %>> Best seller
+    </label>
+    <label style="display:flex;align-items:center;gap:.4rem;font-weight:500;">
+      <input type="checkbox" name="isFlashSale" <%= product && product.isFlashSale ? "checked" : "" %>> Flash sale
+    </label>
+  </div>
+
+  <button type="submit" class="admin-btn-primary" style="margin-top:1.5rem;"><%= mode === "edit" ? "Save changes" : "Create product" %></button>
+</form>
+
+<script>
+  document.getElementById('addSizeRow').addEventListener('click', function () {
+    const body = document.getElementById('sizesBody');
+    const i = body.querySelectorAll('tr').length;
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td><input type="text" name="sizes[' + i + '][size]" required maxlength="6"></td>' +
+      '<td><input type="number" name="sizes[' + i + '][price]" min="0" step="0.01" required></td>' +
+      '<td><input type="number" name="sizes[' + i + '][stock]" min="0" step="1" required></td>' +
+      '<td><button type="button" class="admin-link admin-danger remove-size-row" style="background:none;border:none;cursor:pointer;">✕</button></td>';
+    body.appendChild(tr);
+  });
+  document.getElementById('sizesBody').addEventListener('click', function (e) {
+    if (e.target.classList.contains('remove-size-row')) {
+      const rows = document.getElementById('sizesBody').querySelectorAll('tr');
+      if (rows.length > 1) e.target.closest('tr').remove();
+    }
+  });
+  const imgInput = document.getElementById('imageInput');
+  const preview = document.getElementById('imagePreview');
+  imgInput.addEventListener('change', function () {
+    if (this.files && this.files[0]) {
+      preview.src = URL.createObjectURL(this.files[0]);
+      preview.style.display = 'block';
+    }
+  });
+</script>
+
+<%- include("../partials/adminFooter") %>

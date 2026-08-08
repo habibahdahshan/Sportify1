@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= typeof title !== 'undefined' ? title : 'Server Error' %></title>
+  <link rel="stylesheet" href="/User/CSS/shop.css">
+  <link rel="stylesheet" href="/site-extra.css">
+</head>
+<body>
+  <main style="text-align:center;padding:6rem 1rem;">
+    <h1 style="font-family:var(--font-display, sans-serif);font-size:2.5rem;color:#b3261e;">Something went wrong</h1>
+    <p><%= typeof message !== 'undefined' ? message : 'An unexpected error occurred.' %></p>
+    <a href="/" style="display:inline-block;margin-top:1.5rem;">Back to home</a>
+  </main>
+</body>
+</html>

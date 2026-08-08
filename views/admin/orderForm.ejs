@@ -1,0 +1,37 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: "Edit order", adminTab: "orders" }) %>
+
+<div class="admin-card" style="margin-bottom:1.5rem;">
+  <h3 style="margin-bottom:.75rem;">Items</h3>
+  <ul style="padding-left:1.2rem;">
+    <% order.lineItems.forEach(function(li) { %>
+      <li><%= li.quantity %> × <%= li.name %> (<%= li.size %>) — <%= li.price %> <%= li.currency %></li>
+    <% }) %>
+  </ul>
+  <p style="font-weight:700;margin-top:.5rem;">Total: <%= order.totalPrice %> LE <% if (order.promoCode) { %>(promo: <%= order.promoCode %>, -<%= order.discountPercent %>%)<% } %></p>
+</div>
+
+<form class="admin-form" method="POST" action="/admin/orders/<%= order._id %>/update">
+  <label for="customerName">Customer name</label>
+  <input type="text" id="customerName" name="customerName" required value="<%= order.customerName %>">
+
+  <label for="customerEmail">Customer email</label>
+  <input type="email" id="customerEmail" name="customerEmail" required value="<%= order.customerEmail %>">
+
+  <label for="phone">Phone</label>
+  <input type="text" id="phone" name="phone" required value="<%= order.phone %>">
+
+  <label for="shippingAddress">Shipping address</label>
+  <textarea id="shippingAddress" name="shippingAddress" rows="3" required><%= order.shippingAddress %></textarea>
+
+  <label for="status">Status</label>
+  <select id="status" name="status">
+    <% ["pending","processing","shipped","delivered","cancelled"].forEach(function(s) { %>
+      <option value="<%= s %>" <%= order.status === s ? "selected" : "" %>><%= s.charAt(0).toUpperCase() + s.slice(1) %></option>
+    <% }) %>
+  </select>
+
+  <button type="submit" class="admin-btn-primary" style="margin-top:1.5rem;">Save changes</button>
+</form>
+
+<%- include("../partials/adminFooter") %>

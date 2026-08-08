@@ -1,0 +1,24 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: targetUser ? "Edit user" : "Add staff account", adminTab: "users" }) %>
+
+<form class="admin-form" method="POST" action="<%= targetUser ? '/admin/users/' + targetUser._id + '/update' : '/admin/users' %>">
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name" required minlength="2" value="<%= targetUser ? targetUser.name : '' %>">
+
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" required value="<%= targetUser ? targetUser.email : '' %>">
+
+  <label for="password">Password <% if (targetUser) { %>(leave blank to keep current)<% } %></label>
+  <input type="password" id="password" name="password" <%= targetUser ? "" : "required" %> minlength="8">
+
+  <label for="role">Role</label>
+  <select id="role" name="role">
+    <% ["user","admin","superadmin"].forEach(function(r) { %>
+      <option value="<%= r %>" <%= targetUser && targetUser.role === r ? "selected" : "" %>><%= r %></option>
+    <% }) %>
+  </select>
+
+  <button type="submit" class="admin-btn-primary" style="margin-top:1.5rem;"><%= targetUser ? "Save changes" : "Create user" %></button>
+</form>
+
+<%- include("../partials/adminFooter") %>

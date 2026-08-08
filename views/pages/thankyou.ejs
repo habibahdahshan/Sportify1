@@ -1,0 +1,15 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "checkout" }) %>
+
+<main class="checkout-page" style="text-align:center;padding:5rem 1rem;">
+  <i class="fa-solid fa-circle-check" style="font-size:3rem;color:#1e7d3a;margin-bottom:1rem;"></i>
+  <h1 style="font-family:var(--font-display);margin-bottom:1rem;">Thank you for your order!</h1>
+  <p>Your order has been placed successfully. You'll receive updates on its status in "My orders".</p>
+  <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="/orders/my-orders" class="btn btn--primary">View my orders</a>
+    <a href="/shop" class="btn btn--dark">Continue shopping</a>
+  </div>
+</main>
+
+<%- include("../partials/footer") %>
+<script>if (window.SportifyCart) { window.SportifyCart.clearLocal(); }</script>

@@ -1,0 +1,33 @@
+<%- include("../partials/head") %>
+<nav class="navbar">
+  <a href="/" class="logo">Sportify</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About us</a></li>
+    <li><a href="/auth/login">Sign in</a></li>
+  </ul>
+</nav>
+
+<main class="auth-page">
+  <div class="auth-card">
+    <h1>Create account</h1>
+    <p>Join Sportify to save favorites, track orders, and check out faster.</p>
+    <form id="signupForm" action="/auth/signup" method="POST" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required minlength="2" autocomplete="name">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email">
+      <label for="password">Password</label>
+      <div class="password-field">
+        <input type="password" id="password" name="password" required autocomplete="new-password" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" title="At least 8 characters, letters and numbers">
+        <button type="button" class="password-toggle" data-target="password" aria-label="Show password">Show</button>
+      </div>
+      <p class="field-hint">At least 8 characters, including letters and numbers.</p>
+      <button type="submit">Sign up</button>
+    </form>
+    <p class="auth-alt">Already have an account? <a href="/auth/login">Sign in</a></p>
+  </div>
+</main>
+<script src="/User/Js/site.js"></script>
+</body>
+</html>

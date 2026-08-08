@@ -1,0 +1,10 @@
+<% if (typeof pages !== 'undefined' && pages > 1) { %>
+<nav class="pagination" aria-label="Pagination">
+  <% const qp = (typeof extraQuery !== 'undefined' && extraQuery) ? extraQuery + '&' : ''; %>
+  <a class="pagination__link <%= page <= 1 ? 'is-disabled' : '' %>" href="?<%= qp %>page=<%= Math.max(1, page - 1) %>" aria-label="Previous page">‹ Prev</a>
+  <% for (let i = 1; i <= pages; i++) { %>
+    <a class="pagination__link <%= i === page ? 'is-active' : '' %>" href="?<%= qp %>page=<%= i %>"><%= i %></a>
+  <% } %>
+  <a class="pagination__link <%= page >= pages ? 'is-disabled' : '' %>" href="?<%= qp %>page=<%= Math.min(pages, page + 1) %>" aria-label="Next page">Next ›</a>
+</nav>
+<% } %>

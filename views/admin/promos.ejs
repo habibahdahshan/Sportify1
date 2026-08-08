@@ -1,0 +1,31 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: "Promo codes", adminTab: "promos" }) %>
+
+<div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+  <a href="/admin/promos/new" class="admin-btn-primary">+ Add promo code</a>
+</div>
+
+<% if (!promos.length) { %>
+  <p class="admin-empty">No promo codes yet.</p>
+<% } else { %>
+<table class="admin-table">
+  <thead><tr><th>Code</th><th>Discount</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>
+    <% promos.forEach(function(p) { %>
+      <tr>
+        <td><strong><%= p.code %></strong></td>
+        <td><%= p.discountPercent %>%</td>
+        <td><% if (p.active) { %><span class="admin-badge admin-badge--delivered">Active</span><% } else { %><span class="admin-badge admin-badge--cancelled">Inactive</span><% } %></td>
+        <td style="white-space:nowrap;">
+          <a class="admin-link" href="/admin/promos/<%= p._id %>/edit">Edit</a> ·
+          <form class="admin-inline-form" action="/admin/promos/<%= p._id %>/delete" method="POST" onsubmit="return confirm('Delete this promo code?');">
+            <button type="submit" class="admin-link admin-danger" style="background:none;border:none;cursor:pointer;padding:0;">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } %>
+
+<%- include("../partials/adminFooter") %>

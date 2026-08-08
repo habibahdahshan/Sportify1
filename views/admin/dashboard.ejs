@@ -1,0 +1,33 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: "Dashboard" }) %>
+
+<div class="admin-stats">
+  <div class="admin-stat-card"><div class="num"><%= stats.productCount %></div><div class="label">Products</div></div>
+  <div class="admin-stat-card"><div class="num"><%= stats.orderCount %></div><div class="label">Orders</div></div>
+  <div class="admin-stat-card"><div class="num"><%= stats.pendingOrders %></div><div class="label">Pending orders</div></div>
+  <div class="admin-stat-card"><div class="num"><%= stats.userCount %></div><div class="label">Users</div></div>
+</div>
+
+<h2 style="margin:1.5rem 0 1rem;font-size:1.1rem;">Recent orders</h2>
+<% if (!recentOrders.length) { %>
+  <p class="admin-empty">No orders yet.</p>
+<% } else { %>
+<table class="admin-table">
+  <thead>
+    <tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr>
+  </thead>
+  <tbody>
+    <% recentOrders.forEach(function(o) { %>
+      <tr>
+        <td>#<%= String(o._id).slice(-6).toUpperCase() %></td>
+        <td><%= o.customerName %><br><span style="color:#888;font-size:.8rem;"><%= o.customerEmail %></span></td>
+        <td><%= o.totalPrice %> LE</td>
+        <td><span class="admin-badge admin-badge--<%= o.status %>"><%= o.status %></span></td>
+        <td><%= new Date(o.createdAt).toLocaleDateString() %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } %>
+
+<%- include("../partials/adminFooter") %>

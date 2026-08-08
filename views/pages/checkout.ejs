@@ -1,0 +1,104 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "checkout" }) %>
+
+<main class="checkout-page">
+  <h1 style="text-align:center;font-family:var(--font-display);margin-bottom:2rem"><%= t('checkout') %></h1>
+  <div class="checkout-grid">
+    <div class="checkout-summary">
+      <h2>Order summary</h2>
+      <ul class="checkout-lines" id="checkoutLines"></ul>
+      <p style="font-weight:700;text-align:right" id="checkoutTotalWrap">Subtotal: <span id="checkoutTotal">—</span></p>
+    </div>
+    <div class="checkout-form-wrap">
+      <h2>Shipping details</h2>
+      <form id="checkoutForm" action="/checkout" method="POST" novalidate>
+        <input type="hidden" name="cartItems" id="cartItemsInput">
+        <input type="text" name="name" placeholder="Full name" required autocomplete="name" minlength="2">
+        <input type="email" name="email" placeholder="Email" required autocomplete="email">
+        <input type="tel" name="phone" placeholder="Phone" required autocomplete="tel" minlength="6">
+        <textarea name="address" rows="3" placeholder="Shipping address" required minlength="5"></textarea>
+
+        <h2 style="margin:1.5rem 0 0.75rem">Payment method</h2>
+        <div class="payment-methods">
+          <label class="payment-method-btn">
+            <input type="radio" name="paymentMethod" value="cash" checked>
+            <span>💵 Cash on delivery</span>
+          </label>
+          <label class="payment-method-btn">
+            <input type="radio" name="paymentMethod" value="visa">
+            <span>💳 Credit / Debit card</span>
+          </label>
+        </div>
+
+        <div class="visa-fields" id="visaFields" style="display:none;">
+          <label for="cardNumber">Card number</label>
+          <input id="cardNumber" type="text" name="cardNumber" inputmode="numeric" maxlength="19" pattern="[0-9 ]*" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
+
+          <div class="visa-grid">
+            <div>
+              <label for="cardMonth">Month</label>
+              <select id="cardMonth" name="cardMonth">
+                <option value="">Month</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="cardYear">Year</label>
+              <select id="cardYear" name="cardYear">
+                <option value="">Year</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+                <option value="2031">2031</option>
+                <option value="2032">2032</option>
+                <option value="2033">2033</option>
+                <option value="2034">2034</option>
+                <option value="2035">2035</option>
+                <option value="2036">2036</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="cardCvv">CVV</label>
+              <input id="cardCvv" type="text" name="cardCvv" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="123" autocomplete="cc-csc">
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin:1.5rem 0 0.75rem">Promo code</h2>
+        <div class="promo-row">
+          <input type="text" id="promoInput" name="promoCode" class="promo-input" placeholder="e.g. SPORTIFY10" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button type="button" id="promoApply">Apply</button>
+        </div>
+        <p id="promoMsg" style="font-size:0.82rem;min-height:1.1em;margin-top:0.3rem"></p>
+
+        <div class="checkout-final-total" id="checkoutFinalWrap">
+          <div class="checkout-total-row"><span>Subtotal</span><span id="finalSubtotal">—</span></div>
+          <div class="checkout-total-row checkout-discount-row" id="discountRow" style="display:none">
+            <span>Discount</span><span id="finalDiscount">—</span>
+          </div>
+          <div class="checkout-total-row checkout-total-final"><span>Total</span><span id="finalTotal">—</span></div>
+        </div>
+
+        <button type="submit" id="placeOrderBtn">Place order</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<%- include("../partials/footer") %>
+<script src="/User/Js/checkout.js"></script>

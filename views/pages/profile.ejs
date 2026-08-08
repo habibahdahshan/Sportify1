@@ -1,0 +1,22 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "profile" }) %>
+
+<main class="auth-page">
+  <div class="auth-card profile-card">
+    <h1>My profile</h1>
+    <p>Update your display name below.</p>
+
+    <form id="profileForm" action="/profile" method="POST" novalidate>
+      <label for="profileName">Username</label>
+      <input type="text" id="profileName" name="name" required maxlength="40" value="<%= user.name %>">
+
+      <label for="profileEmail">Email</label>
+      <input type="email" id="profileEmail" value="<%= user.email %>" disabled>
+
+      <button type="submit">Save changes</button>
+    </form>
+    <p class="auth-alt"><a href="/">Back to home</a></p>
+  </div>
+</main>
+
+<%- include("../partials/footer") %>

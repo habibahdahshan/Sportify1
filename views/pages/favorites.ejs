@@ -1,0 +1,14 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "favorites" }) %>
+
+<main class="favorites-page">
+  <h1><%= t('favorites') %></h1>
+  <p class="sub">Products you've saved — tap ❤ on any product to add or remove.</p>
+  <div class="products-grid" id="favoritesGrid" style="margin-top:2rem;"></div>
+  <p class="auth-alt" id="favoritesEmptyMsg" style="margin-top:1.5rem;text-align:center;display:none;">
+    No favorites yet. <a href="/shop">Browse the shop</a>
+  </p>
+</main>
+
+<%- include("../partials/footer") %>
+<script src="/User/Js/favorites-page.js"></script>

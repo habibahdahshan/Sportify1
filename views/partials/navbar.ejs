@@ -1,0 +1,61 @@
+<header class="navbar <%= typeof navbarClass !== 'undefined' ? navbarClass : '' %>">
+  <a href="/" class="logo">Sportify</a>
+
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-main" aria-label="Open menu">
+    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+  </button>
+
+  <nav class="nav-main" id="nav-main" aria-label="Primary">
+    <ul>
+      <li><a href="/" class="<%= typeof activePage !== 'undefined' && activePage === 'home' ? 'active' : '' %>"><%= t('home') %></a></li>
+      <li class="nav-item-shop">
+        <a href="/shop" class="<%= typeof activePage !== 'undefined' && activePage === 'shop' ? 'active' : '' %>"><%= t('shop') %></a>
+        <div class="dropdown-menu dropdown-menu--horizontal">
+          <a href="/shop"><%= t('shop_all') %></a>
+          <a href="/shop?category=men"><%= t('for_men') %></a>
+          <a href="/shop?category=women"><%= t('for_women') %></a>
+          <a href="/shop?category=unisex"><%= t('unisex') %></a>
+        </div>
+      </li>
+      <li><a href="/#flash-sale"><%= t('flash_sale') %></a></li>
+      <li><a href="/about" class="<%= typeof activePage !== 'undefined' && activePage === 'about' ? 'active' : '' %>"><%= t('about_us') %></a></li>
+      <% if (user) { %>
+        <li><a href="/orders/my-orders" class="<%= typeof activePage !== 'undefined' && activePage === 'orders' ? 'active' : '' %>"><%= t('my_orders') %></a></li>
+      <% } %>
+      <% if (user && (user.role === "admin" || user.role === "superadmin")) { %>
+        <li><a href="/admin" class="<%= typeof activePage !== 'undefined' && activePage === 'admin' ? 'active' : '' %>"><%= t('admin') %></a></li>
+      <% } %>
+    </ul>
+  </nav>
+
+  <div class="icons">
+    <div class="lang-switcher" aria-label="Language" style="display:flex;gap:.35rem;align-items:center;margin-right:.5rem;">
+      <a href="?lang=en" style="font-size:.75rem;font-weight:<%= lang === 'en' ? '800' : '400' %>;">EN</a>
+      <span aria-hidden="true">/</span>
+      <a href="?lang=ar" style="font-size:.75rem;font-weight:<%= lang === 'ar' ? '800' : '400' %>;">AR</a>
+    </div>
+
+    <i class="fa-solid fa-magnifying-glass nav-search-icon" aria-hidden="true" role="button" tabindex="0" aria-label="<%= t('search') %>" id="nav-search-icon"></i>
+
+    <% if (user) { %>
+      <a href="/profile" class="nav-icon-link" aria-label="Profile"><i class="fa-regular fa-user"></i></a>
+      <a href="/auth/logout" class="nav-icon-link" aria-label="<%= t('logout') %>"><i class="fa-solid fa-right-from-bracket"></i></a>
+    <% } else { %>
+      <a href="/auth/login" class="nav-icon-link" aria-label="<%= t('sign_in') %>"><i class="fa-regular fa-user"></i></a>
+    <% } %>
+
+    <span id="fav-drawer-trigger" class="nav-icon-link nav-fav-trigger" role="button" tabindex="0" aria-label="<%= t('favorites') %>">
+      <i class="fa-regular fa-heart" aria-hidden="true"></i>
+    </span>
+
+    <span class="cart-icon-wrap" role="button" tabindex="0" aria-label="Cart">
+      <i class="fa-solid fa-bag-shopping" id="cart-icon-home" aria-hidden="true"></i>
+      <span class="cart-count-badge" id="cart-count">0</span>
+    </span>
+  </div>
+</header>
+
+<div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
+
+<%- include("searchModal") %>
+<%- include("cartDrawer") %>

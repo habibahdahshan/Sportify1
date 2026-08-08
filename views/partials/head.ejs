@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="<%= typeof lang !== 'undefined' ? lang : 'en' %>" dir="<%= typeof dir !== 'undefined' ? dir : 'ltr' %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== "undefined" ? title : "Sportify" %></title>
+  <meta name="description" content="Sportify — performance sportswear for training, running and everyday life.">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Anton&family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="/User/CSS/Home.css">
+  <link rel="stylesheet" href="/User/CSS/shop.css">
+  <link rel="stylesheet" href="/User/CSS/shop-filters.css">
+  <link rel="stylesheet" href="/User/CSS/checkout.css">
+  <link rel="stylesheet" href="/User/CSS/aboutus-page.css">
+  <link rel="stylesheet" href="/site-extra.css">
+
+  <script>
+    window.sportifySession = {
+      loggedIn: <%= user ? "true" : "false" %>,
+      userId: "<%= typeof currentUserId !== 'undefined' ? currentUserId : '' %>",
+      userName: "<%= user && user.name ? String(user.name).replace(/\"/g, '\\\\\"') : '' %>"
+    };
+  </script>
+</head>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+<%- include("messages") %>

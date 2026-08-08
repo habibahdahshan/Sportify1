@@ -1,0 +1,57 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "shop" }) %>
+
+<div class="shop-layout">
+  <aside class="filters-sidebar">
+    <h3 class="filters-sidebar__title">Filters</h3>
+
+    <details class="filter-dropdown filter-group filter-group--collection" open>
+      <summary class="filter-dropdown__toggle">
+        <span>Categories</span>
+        <i class="fa-solid fa-chevron-down filter-dropdown__arrow" aria-hidden="true"></i>
+      </summary>
+      <div class="filter-dropdown__panel">
+        <div class="filter-collection filter-collection--radios">
+          <label class="filter-radio">
+            <input type="radio" name="collectionFilter" value="shopall" <%= selectedCategory === "shopall" ? "checked" : "" %>>
+            All shop
+          </label>
+          <label class="filter-radio">
+            <input type="radio" name="collectionFilter" value="men" <%= selectedCategory === "men" ? "checked" : "" %>>
+            Men
+          </label>
+          <label class="filter-radio">
+            <input type="radio" name="collectionFilter" value="women" <%= selectedCategory === "women" ? "checked" : "" %>>
+            Women
+          </label>
+          <label class="filter-radio">
+            <input type="radio" name="collectionFilter" value="unisex" <%= selectedCategory === "unisex" ? "checked" : "" %>>
+            Unisex
+          </label>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-dropdown filter-group" open>
+      <summary class="filter-dropdown__toggle">
+        <span>Search</span>
+        <i class="fa-solid fa-chevron-down filter-dropdown__arrow" aria-hidden="true"></i>
+      </summary>
+      <div class="filter-dropdown__panel">
+        <input type="text" id="searchInput" placeholder="Search products…" autocomplete="off">
+      </div>
+    </details>
+
+    <button type="button" class="clear-filters" id="clearFilters">Clear filters</button>
+  </aside>
+
+  <div class="products-area">
+    <p class="results-count" id="resultsCount">Loading products…</p>
+    <div class="products-grid" id="shopGrid"></div>
+    <nav class="pagination" id="shopPagination" aria-label="Pagination"></nav>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>
+<script>window.SPORTIFY_INITIAL_CATEGORY = "<%= selectedCategory %>";</script>
+<script src="/User/Js/shop.js"></script>

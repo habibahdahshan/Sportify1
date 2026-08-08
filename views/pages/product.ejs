@@ -1,0 +1,82 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "shop" }) %>
+
+<main class="product-page" id="productRoot" data-product-id="<%= pageProduct.id %>" data-product='<%- JSON.stringify(pageProduct).replace(/'/g, "&#39;") %>'>
+  <div class="product-detail">
+    <div class="product-detail__media">
+      <img id="pdImg" src="<%= pageProduct.image %>" alt="<%= pageProduct.name %>">
+      <% if (pageProduct.isFlashSale) { %><span class="badge-flash">Flash sale</span><% } %>
+      <% if (!pageProduct.inStock) { %><span class="badge-out">Out of stock</span><% } %>
+    </div>
+    <div class="product-detail__info">
+      <h1 id="pdTitle"><%= pageProduct.name %></h1>
+      <p class="lead" id="pdLead"><%= pageProduct.line %></p>
+      <p class="product-detail__price" id="pdPrice"></p>
+
+      <div class="size-select">
+        <label for="pdSize">Size</label>
+        <select id="pdSize">
+          <% pageProduct.sizes.forEach(function(s) { %>
+            <option value="<%= s.size %>" <%= !s.inStock ? "disabled" : "" %> data-price="<%= s.price %>">
+              <%= s.size %><%= !s.inStock ? " (out of stock)" : "" %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="product-detail__top-actions">
+        <button type="button" class="product-detail__fav" id="pdFav" aria-pressed="false" aria-label="Add to favorites">
+          <span class="product-detail__fav-icon" aria-hidden="true">❤</span>
+        </button>
+        <div class="product-qty">
+          <label>Quantity</label>
+          <div class="qty-stepper">
+            <button type="button" class="qty-step-btn" id="pdQtyDec" aria-label="Decrease">−</button>
+            <span class="qty-step-val" id="pdQty">1</span>
+            <button type="button" class="qty-step-btn" id="pdQtyInc" aria-label="Increase">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-actions">
+        <button type="button" class="btn-add-cart" id="pdAddCart" <%= !pageProduct.inStock ? "disabled" : "" %>><%= t('add_to_cart') %></button>
+        <button type="button" class="btn-buy" id="pdBuyNow" <%= !pageProduct.inStock ? "disabled" : "" %>><%= t('buy_now') %></button>
+      </div>
+
+      <div class="product-details" id="pdDetails">
+        <h3 class="product-details__title">Product details</h3>
+        <div class="product-details__rows">
+          <p><%= pageProduct.description %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="related-section" id="relatedSection">
+  <div class="related-inner">
+    <h2 class="related-heading">You might also like</h2>
+    <div class="related-grid" id="relatedGrid">
+      <% related.forEach(function(p) { %>
+        <a class="related-card" href="/products/<%= p.id %>">
+          <img src="<%= p.image %>" alt="<%= p.name %>">
+          <h4><%= p.name %></h4>
+          <span class="related-card__price">
+            <% if (p.isFlashSale) { %>
+              <% const prices = p.sizes.map(function(s) { return Number(s.price) || 0; }); %>
+              <% const highestPrice = prices.length ? Math.max.apply(null, prices) : 0; %>
+              <% const lowestPrice = prices.length ? Math.min.apply(null, prices) : 0; %>
+              <span class="price price--was"><%= highestPrice %> <%= p.currency %></span>
+              <span class="price price--now"><%= lowestPrice %> <%= p.currency %></span>
+            <% } else { %>
+              <span class="price price--now"><%= p.sizes[0] ? p.sizes[0].price : '' %> <%= p.currency %></span>
+            <% } %>
+          </span>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>
+<script src="/User/Js/product-page.js"></script>

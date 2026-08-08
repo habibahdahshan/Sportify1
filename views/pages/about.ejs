@@ -1,0 +1,26 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar", { activePage: "about" }) %>
+
+<main class="about-page">
+  <section class="about-hero page-container">
+    <p class="hero__eyebrow">Our story</p>
+    <h1><%= t('about_us') %></h1>
+    <p class="lead">Sportify was founded to make high-performance training gear accessible to everyone — not just professional athletes. From the studio to the street, our pieces are engineered to move the way you do.</p>
+  </section>
+  <section class="about-values page-container">
+    <div class="about-value">
+      <h3>Built to move</h3>
+      <p>Every piece is tested for stretch, breathability, and durability across real training sessions.</p>
+    </div>
+    <div class="about-value">
+      <h3>Everyday quality</h3>
+      <p>We use performance fabrics that hold up wash after wash, whether you're training or just living life.</p>
+    </div>
+    <div class="about-value">
+      <h3>For everyone</h3>
+      <p>Men's, women's, and unisex collections designed with the same care and attention to fit.</p>
+    </div>
+  </section>
+</main>
+
+<%- include("../partials/footer") %>

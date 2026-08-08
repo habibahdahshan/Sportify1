@@ -1,0 +1,25 @@
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h2><%= t('your_cart') %></h2>
+    <button type="button" class="close-btn" id="cart-close-btn" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="empty-msg"><%= t('empty_cart') %></p>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-total"><%= t('total') %>: <span id="cart-total">0</span></div>
+    <a href="/checkout" class="checkout-btn" id="cart-checkout-btn"><%= t('checkout') %></a>
+  </div>
+</div>
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<div class="cart-sidebar" id="fav-sidebar">
+  <div class="cart-header">
+    <h2><%= t('favorites') %></h2>
+    <button type="button" class="close-btn" id="fav-close-btn" aria-label="Close favorites">✕</button>
+  </div>
+  <div class="cart-items" id="fav-items">
+    <p class="empty-msg">No favorites yet.</p>
+  </div>
+</div>
+<div class="cart-overlay" id="fav-overlay"></div>

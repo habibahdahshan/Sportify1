@@ -1,0 +1,52 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: "Products", adminTab: "products" }) %>
+
+<div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+  <a href="/admin/products/new" class="admin-btn-primary">+ Add product</a>
+</div>
+
+<% if (!products.length) { %>
+  <p class="admin-empty">No products yet. <a href="/admin/products/new">Add your first product</a>.</p>
+<% } else { %>
+<table class="admin-table">
+  <thead>
+    <tr><th>Image</th><th>Name</th><th>Category</th><th>Sizes / Price</th><th>Stock</th><th>Flags</th><th>Status</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% products.forEach(function(p) { %>
+      <tr>
+        <td><img class="admin-thumb" src="<%= p.image %>" alt="<%= p.name %>"></td>
+        <td><%= p.name %></td>
+        <td style="text-transform:capitalize;"><%= p.category %></td>
+        <td style="font-size:.8rem;">
+          <% p.sizes.forEach(function(s) { %>
+            <%= s.size %>: <%= s.price %> <%= p.currency %> (<%= s.stock %>)<br>
+          <% }) %>
+        </td>
+        <td><%= p.stock %></td>
+        <td style="font-size:.75rem;">
+          <% if (p.isFeatured) { %>Featured<br><% } %>
+          <% if (p.isBestSeller) { %>Best seller<br><% } %>
+          <% if (p.isFlashSale) { %>Flash sale<br><% } %>
+        </td>
+        <td>
+          <% if (p.isHidden) { %><span class="admin-badge admin-badge--cancelled">Hidden</span>
+          <% } else { %><span class="admin-badge admin-badge--delivered">Live</span><% } %>
+        </td>
+        <td style="white-space:nowrap;">
+          <a class="admin-link" href="/admin/products/<%= p._id %>/edit">Edit</a> ·
+          <form class="admin-inline-form" action="/admin/products/<%= p._id %>/toggle-hidden" method="POST">
+            <button type="submit" class="admin-link" style="background:none;border:none;cursor:pointer;padding:0;"><%= p.isHidden ? "Unhide" : "Hide" %></button>
+          </form> ·
+          <form class="admin-inline-form" action="/admin/products/<%= p._id %>/delete" method="POST" onsubmit="return confirm('Delete this product permanently?');">
+            <button type="submit" class="admin-link admin-danger" style="background:none;border:none;cursor:pointer;padding:0;">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include("../partials/pagination", { page, pages }) %>
+<% } %>
+
+<%- include("../partials/adminFooter") %>

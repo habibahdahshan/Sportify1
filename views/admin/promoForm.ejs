@@ -1,0 +1,18 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: promo ? "Edit promo code" : "Add promo code", adminTab: "promos" }) %>
+
+<form class="admin-form" method="POST" action="<%= promo ? '/admin/promos/' + promo._id + '/update' : '/admin/promos' %>">
+  <label for="code">Code</label>
+  <input type="text" id="code" name="code" required minlength="2" style="text-transform:uppercase;" value="<%= promo ? promo.code : '' %>">
+
+  <label for="discountPercent">Discount percent</label>
+  <input type="number" id="discountPercent" name="discountPercent" required min="1" max="100" value="<%= promo ? promo.discountPercent : '' %>">
+
+  <label style="display:flex;align-items:center;gap:.4rem;font-weight:500;margin-top:.75rem;">
+    <input type="checkbox" name="active" <%= (!promo || promo.active) ? "checked" : "" %>> Active
+  </label>
+
+  <button type="submit" class="admin-btn-primary" style="margin-top:1.5rem;"><%= promo ? "Save changes" : "Create promo code" %></button>
+</form>
+
+<%- include("../partials/adminFooter") %>

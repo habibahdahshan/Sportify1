@@ -1,0 +1,22 @@
+<nav class="navbar admin-navbar">
+  <a href="/" class="logo">Sportify</a>
+  <div class="admin-nav-badge">Admin Panel</div>
+</nav>
+
+<main class="admin-page">
+  <div class="admin-dash-header">
+    <h1 class="admin-page-title"><%= typeof pageTitle !== 'undefined' ? pageTitle : title %></h1>
+    <a href="/auth/logout" class="admin-btn-outline">Log out</a>
+  </div>
+
+  <div class="admin-tabs" role="tablist">
+    <a href="/admin" class="admin-tab <%= activePage === 'admin' && typeof adminTab === 'undefined' ? 'is-active' : '' %>">Dashboard</a>
+    <a href="/admin/products" class="admin-tab <%= typeof adminTab !== 'undefined' && adminTab === 'products' ? 'is-active' : '' %>">Products</a>
+    <a href="/admin/orders" class="admin-tab <%= typeof adminTab !== 'undefined' && adminTab === 'orders' ? 'is-active' : '' %>">Orders</a>
+    <% if (isSuperAdmin) { %>
+      <a href="/admin/promos" class="admin-tab <%= typeof adminTab !== 'undefined' && adminTab === 'promos' ? 'is-active' : '' %>">Promo codes</a>
+      <a href="/admin/users" class="admin-tab <%= typeof adminTab !== 'undefined' && adminTab === 'users' ? 'is-active' : '' %>">Users</a>
+    <% } %>
+  </div>
+
+  <%- include("messages") %>

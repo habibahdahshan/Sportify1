@@ -1,0 +1,32 @@
+<%- include("../partials/adminHead") %>
+<%- include("../partials/adminNav", { pageTitle: "Users", adminTab: "users" }) %>
+
+<div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+  <a href="/admin/users/new" class="admin-btn-primary">+ Add staff account</a>
+</div>
+
+<table class="admin-table">
+  <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Actions</th></tr></thead>
+  <tbody>
+    <% users.forEach(function(u) { %>
+      <tr>
+        <td><%= u.name %></td>
+        <td><%= u.email %></td>
+        <td><span class="admin-badge admin-badge--<%= u.role %>"><%= u.role %></span></td>
+        <td><%= new Date(u.createdAt).toLocaleDateString() %></td>
+        <td style="white-space:nowrap;">
+          <a class="admin-link" href="/admin/users/<%= u._id %>/edit">Edit</a>
+          <% if (String(u._id) !== currentUserId) { %>
+            ·
+            <form class="admin-inline-form" action="/admin/users/<%= u._id %>/delete" method="POST" onsubmit="return confirm('Delete this user?');">
+              <button type="submit" class="admin-link admin-danger" style="background:none;border:none;cursor:pointer;padding:0;">Delete</button>
+            </form>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include("../partials/pagination", { page, pages }) %>
+
+<%- include("../partials/adminFooter") %>
